@@ -1,4 +1,4 @@
-const { Client, Intents } = require("discord.js");
+const { Client, Intents, MessageFlags } = require("discord.js");
 const { joinVoiceChannel } = require("@discordjs/voice");
 const { addSpeechEvent } = require("discord-speech-recognition");
 
@@ -9,6 +9,7 @@ const client = new Client({
     Intents.FLAGS.GUILD_MESSAGES,
   ],
 });
+
 addSpeechEvent(client);
 
 client.on("messageCreate", (msg) => {
@@ -22,28 +23,39 @@ client.on("messageCreate", (msg) => {
     });
   }
 });
-
-client.on("speech", (msg) => {
-  //msg.author.send(msg.content);
-  if(msg.content == "cabbage"){
-    let channel = msg.guild.channels.cache.get(msg.member.voice.channel.id);
-    for (const member of channel.members.values()){
-      member.voice.setMute();
-      member.voice.setDeaf();
-    }
-    /* memers = msg.author.voiceChannel.members;
-    if(members == null)
-          return;
-    members.forEach(traverse); */
-  }
+try {
+  client.on("speech", (msg) => {
+    if(msg.author.id == "447933732993630209"){
+      client.channels.cache.get(`732921988255055922`).send(msg.content);
   
-/*       await member.edit(mute=True);
-      await member.edit(deafen=True);
-  } */
+      if(msg.content == "silence"){
+        let channel = msg.guild.channels.cache.get(msg.member.voice.channel.id);
+        for (const member of channel.members.values()){
+          if(member.id == "447933732993630209" || member.id == "995686536681095350")
+            continue;
+          member.voice.setMute();
+          member.voice.setDeaf();
+        }
+      }
+  
+      if(msg.content == "hear me"){
+        let channel = msg.guild.channels.cache.get(msg.member.voice.channel.id);
+        for (const member of channel.members.values()){
+          if(member.id == "447933732993630209" || member.id == "995686536681095350")
+            continue;
+          member.voice.setMute(false);
+          member.voice.setDeaf(false);
+        }
+      }
+    }
+  
+  
+  });
+}
+catch(err) {
+  console.log("error!"+ err);
+}
 
-  client.channels.cache.get(`995556648846381128`).send(msg.content);
-
-});
 
 client.on("ready", () => {
   console.log("Ready!");

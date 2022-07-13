@@ -1,27 +1,12 @@
-# Simple bot with speech recognition
+TYRANT Discord bot
 
-It's the simplest example of how to use discord-speech-recognition library.
+This is a bot can mute and unmute everyone in a voice channel through voice commands.
 
-## Installation
+Thank you to zahid47 for letting me understand how his MuteAll bot works. I took inspiration from his work and converted some of the commands to NodeJs
 
-```sh
-git clone https://github.com/Rei-x/discord-speech-recognition
-cd discord-speech-recognition/examples/simpleBot
-npm install
-```
+https://github.com/zahid47/MuteAll
 
-Replace `token` in index.js file with your bot's token.
 
-## How to use it?
+I also used Rei-x's speech recognition extension for discord js
 
-Run:
-
-```sh
-npm start
-```
-
-If you did everything correctly you should see "Ready!" in console.
-
-Join a voice channel and send a message in guild text channel. Bot will join and start speech recognition. Try to say something in english and it will send you a DM with recognized speech!
-
-If something doesn't work for you, please open an issue on github and I will try my best to help you!
+https://github.com/Rei-x/discord-speech-recognition
