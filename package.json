@@ -1,8 +1,20 @@
 {
+  "name": "tyrant-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "@discordjs/opus": "^0.8.0",
+    "@discordjs/voice": "^0.6.0",
     "discord-speech-recognition": "^2.2.0",
     "discord.js": "^13.8.1",
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.1",
+    "sodium": "^3.0.2"
   }
 }
