@@ -1,6 +1,8 @@
-const { Client, Intents, MessageFlags } = require("discord.js");
+const { Client, Intents } = require("discord.js");
 const { joinVoiceChannel } = require("@discordjs/voice");
 const { addSpeechEvent } = require("discord-speech-recognition");
+
+require('dotenv').config();
 
 const client = new Client({
   intents: [
@@ -9,7 +11,6 @@ const client = new Client({
     Intents.FLAGS.GUILD_MESSAGES,
   ],
 });
-
 addSpeechEvent(client);
 
 client.on("messageCreate", (msg) => {
@@ -23,42 +24,16 @@ client.on("messageCreate", (msg) => {
     });
   }
 });
-try {
-  client.on("speech", (msg) => {
-    if(msg.author.id == "447933732993630209"){
-      client.channels.cache.get(`732921988255055922`).send(msg.content);
-  
-      if(msg.content == "silence"){
-        let channel = msg.guild.channels.cache.get(msg.member.voice.channel.id);
-        for (const member of channel.members.values()){
-          if(member.id == "447933732993630209" || member.id == "995686536681095350")
-            continue;
-          member.voice.setMute();
-          member.voice.setDeaf();
-        }
-      }
-  
-      if(msg.content == "hear me"){
-        let channel = msg.guild.channels.cache.get(msg.member.voice.channel.id);
-        for (const member of channel.members.values()){
-          if(member.id == "447933732993630209" || member.id == "995686536681095350")
-            continue;
-          member.voice.setMute(false);
-          member.voice.setDeaf(false);
-        }
-      }
-    }
-  
-  
-  });
-}
-catch(err) {
-  console.log("error!"+ err);
-}
 
+client.on("speech", (msg) => {
+  // If bot didn't recognize speech, content will be empty
+  if (!msg.content) return;
+
+  msg.author.send(msg.content);
+});
 
 client.on("ready", () => {
   console.log("Ready!");
 });
 
-client.login("OTk1Njg2NTM2NjgxMDk1MzUw.GreDx3.SKSUZhpHlBhlMoCns_Hhj93Bjhg70Fq1pN0jd4");
+client.login(process.env.DISCORD_TOKEN);
