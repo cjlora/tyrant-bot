@@ -3,7 +3,7 @@ const { joinVoiceChannel } = require("@discordjs/voice");
 const { addSpeechEvent } = require("discord-speech-recognition");
 
 require('dotenv').config();
-require('events').EventEmitter.prototype._maxListeners = 100;
+//require('events').EventEmitter.prototype._maxListeners = 100;
 
 const client = new Client({
   intents: [
@@ -27,7 +27,11 @@ client.on("messageCreate", (msg) => {
 });
 
 client.on("speech", (msg) => {
+  if (!msg.content) 
+    return;
   if(msg.author.id == "468467136483033091"){
+    if (!msg.content) 
+      return;
     client.channels.cache.get(`995556648846381128`).send(msg.content);
 
     if(msg.content == "silence"){
